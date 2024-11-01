@@ -9,7 +9,7 @@ function Dashboard() {
         {session ? (
             <>  
                 <img src={session.user?.image as string} alt="profileimage" className='rounded-full h-16 w-16'/>
-                <h1 className='text-3xl font-bold'>Welcome Back <strong className='text-green-500'>{session.user?.name}</strong> </h1>
+                <h1 className='text-3xl font-bold'>Welcome Back, <strong className='text-green-500'>{session.user?.name}</strong> </h1>
                 <p className='text-2xl font-semibold'>{session.user?.email}</p>
 
                 <button onClick={() => signOut()} className='border border-black bg-red-400 rounded-lg px-5 py-1'>Sign Out</button>
