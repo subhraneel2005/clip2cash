@@ -1,4 +1,4 @@
-import Dashboard from "@/components/Dashboard";
+import Dashboard from "@/components/base-components/Dashboard";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
