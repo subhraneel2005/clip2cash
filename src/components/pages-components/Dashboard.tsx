@@ -1,15 +1,25 @@
 "use client";
 
 import { Bar, BarChart, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
-import { Bell, ChevronDown, Search, Settings } from "lucide-react";
+import { Bell, ChevronDown, Search, Settings, Calendar as CalendarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { addDays, format } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import { useSession } from "next-auth/react";
 
 const monthlyData = [
   { month: "Jan", value: 1500 },
@@ -36,14 +46,24 @@ const recentSales = [
 
 export default function Dashboard() {
   const [data, setData] = React.useState(monthlyData);
+  const [date, setDate] = React.useState<DateRange | undefined>({
+    from: new Date(2023, 0, 20),
+    to: new Date(2023, 1, 9),
+  }); 
+
+  const {data:session} = useSession();
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
       <header className="border-b">
         <div className="flex h-16 items-center px-4 gap-4">
           <div className="flex items-center gap-2">
-            <Image src="/placeholder.svg" alt="Avatar" className="rounded-full" width={32} height={32} />
-            <span className="font-semibold">Alicia Koch</span>
+          {session ? (
+              <>
+                <Image src={session.user?.image as string} alt="Avatar" className="rounded-full" width={32} height={32} />
+                <span className="font-semibold">{session.user?.name}</span>
+              </>
+            ) : null}
             <ChevronDown className="h-4 w-4" />
           </div>
           <nav className="flex items-center gap-4 ml-4">
@@ -64,12 +84,41 @@ export default function Dashboard() {
       </header>
       <div className="flex-1 space-y-4 p-4 md:p-8 w-full">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Dashboard</h1>
+          <h1 className="lg:text-3xl text-xl font-bold pb-4">Dashboard</h1>
           <div className="flex items-center gap-4">
-            <Button variant="outline">Jan 20, 2023 - Feb 09, 2023</Button>
-            <Button>Download</Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" className="justify-start text-left font-normal">
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date?.from ? (
+                    date.to ? (
+                      <>
+                        {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
+                      </>
+                    ) : (
+                      format(date.from, "LLL dd, y")
+                    )
+                  ) : (
+                    <span>Pick a date</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="end">
+                <Calendar
+                  initialFocus
+                  mode="range"
+                  defaultMonth={date?.from}
+                  selected={date}
+                  onSelect={setDate}
+                  numberOfMonths={2}
+                  className="dark"
+                />
+              </PopoverContent>
+            </Popover>
+            <Button className="hidden lg:flex">Download</Button>
           </div>
         </div>
+
         <Tabs defaultValue="overview">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -78,7 +127,7 @@ export default function Dashboard() {
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
           </TabsList>
         </Tabs>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 pt-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
@@ -89,7 +138,36 @@ export default function Dashboard() {
               <p className="text-xs text-muted-foreground">+20.1% from last month</p>
             </CardContent>
           </Card>
-          {/* Additional cards as in original code */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
+              <span className="text-muted-foreground">+2350</span>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">+2350</div>
+              <p className="text-xs text-muted-foreground">+180.1% from last month</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Sales</CardTitle>
+              <span className="text-muted-foreground">+12,234</span>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">+12,234</div>
+              <p className="text-xs text-muted-foreground">+19% from last month</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+              <span className="text-muted-foreground">+573</span>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">+573</div>
+              <p className="text-xs text-muted-foreground">+201 since last hour</p>
+            </CardContent>
+          </Card>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-4">
@@ -97,13 +175,13 @@ export default function Dashboard() {
               <CardTitle>Overview</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <div className="h-72">
+              <div className="h-96">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={data}>
                     <XAxis dataKey="month" stroke="#888888" fontSize={12} axisLine={false} tickLine={false} />
                     <YAxis stroke="#888888" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `$${value}`} />
                     <Tooltip contentStyle={{ backgroundColor: "#fff", border: "1px solid #ddd" }} />
-                    <Bar dataKey="value" fill="#3a86ff" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="value" fill="#3a86ff" radius={[4, 4, 0, 0]} barSize={50}/>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -111,12 +189,12 @@ export default function Dashboard() {
           </Card>
           <Card className="col-span-3">
             <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
+              <CardTitle className="text-2xl">Recent Sales</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-4">
+              <ul className="space-y-8 pt-4">
                 {recentSales.map((sale, index) => (
-                  <li key={index} className="flex items-center">
+                  <li key={index} className="flex items-center justify-center">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">
                       <span className="font-medium">{sale.name[0]}</span>
                     </div>

@@ -78,7 +78,8 @@ export default function Navbar() {
           Getstart
         </h2>
       </span>
-
+    
+    <div className="flex flex-row gap-4">
       <div className="hidden lg:flex gap-2">
         <NavigationMenu>
           <NavigationMenuList>
@@ -126,77 +127,99 @@ export default function Navbar() {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-
+      
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="lg:hidden">
-            <Menu className="h-20 w-20" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="w-[300px] sm:w-[350px]">
-          <nav className="flex flex-col space-y-4">
-            <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
-              <span className="font-bold text-lg">Getstart</span>
-            </Link>
-            <NavigationMenu orientation="vertical">
-              <NavigationMenuList className="flex-col items-start space-y-2">
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>What you get</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[calc(300px-2rem)] gap-3 p-4 sm:w-[calc(350px-2rem)]">
-                      {components.map((component) => (
-                        <div key={component.title} className="flex items-center justify-center space-x-2">
-                        <img src={component.image} alt={`${component.title} icon`} className="w-6 h-6" />
-                        <ListItem title={component.title}>
-                          {component.description}
-                        </ListItem>
-                      </div>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>Use Cases</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[calc(300px-2rem)] gap-3 p-4 sm:w-[calc(350px-2rem)]">
-                      {useCases.map((component) => (
-                        <ListItem key={component.title} title={component.title}>
-                          {component.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <Button
-                      variant="ghost"
-                      size={'lg'}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Pricing
-                    </Button>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <Button
-                      size={'lg'}
-                      variant="ghost"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      How it Works
-                    </Button>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-            {session ? <span className='gap-1 flex'><img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/><Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button></span> : <Button onClick={() => signIn("google")} size={'sm'} variant={'secondary'}>Sign In</Button>}
-          </nav>
-        </SheetContent>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="lg:hidden">
+              <Menu className="h-20 w-20" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+            <nav className="flex flex-col space-y-4">
+              <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
+                <span className="font-bold text-lg">Getstart</span>
+              </Link>
+              <NavigationMenu orientation="vertical">
+                <NavigationMenuList className="flex-col items-start space-y-2">
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>What you get</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[calc(300px-2rem)] gap-3 p-4 sm:w-[calc(350px-2rem)]">
+                        {components.map((component) => (
+                          <div key={component.title} className="flex items-center justify-center space-x-2">
+                          <img src={component.image} alt={`${component.title} icon`} className="w-6 h-6" />
+                          <ListItem title={component.title}>
+                            {component.description}
+                          </ListItem>
+                        </div>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Use Cases</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[calc(300px-2rem)] gap-3 p-4 sm:w-[calc(350px-2rem)]">
+                        {useCases.map((component) => (
+                          <ListItem key={component.title} title={component.title}>
+                            {component.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Button
+                        variant="ghost"
+                        size={'lg'}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Pricing
+                      </Button>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Button
+                        size={'lg'}
+                        variant="ghost"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        How it Works
+                      </Button>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  { session &&
+                    <Link href={"/dashboard"}>
+                      <Button 
+                        variant={"ghost"}
+                      >
+                      My Dashboard</Button>
+                    </Link>}
+                </NavigationMenuList>
+              </NavigationMenu>
+              {session ? <span className='gap-1 flex'><img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/><Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button></span> : <Button onClick={() => signIn("google")} size={'sm'} variant={'secondary'}>Sign In</Button>}
+            </nav>
+          </SheetContent>
       </Sheet>
+      { session &&
+        <Link href={"/dashboard"} className="hidden lg:flex">
+          <Button 
+            variant={"ghost"}
+          >
+          My Dashboard</Button>
+        </Link>}
 
-      {session ? <span className='lg:flex gap-1 hidden'><img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/><Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button></span> : <Button className="hidden lg:flex" onClick={() => signIn("google")} size={'sm'} variant={'secondary'}>Sign In</Button>}
+        
+    </div>
+
+      {session ? 
+        <span className='lg:flex gap-1 hidden'>
+        <img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/>
+        <Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
+        </span> 
+      : <Button className="hidden lg:flex" onClick={() => signIn("google")} size={'sm'} variant={'secondary'}>Sign In</Button>}
 
     </nav>
   )
