@@ -2,13 +2,15 @@
 
 import Navbar from "@/components/base-components/Navbar";
 import HeroSection from "@/components/pages-components/HeroSection";
+import PricingPage from "@/components/pages-components/Pricing-Page";
 import Particles from "@/components/ui/particles";
 
 export default function Home() {
   return (
-    <div className="relative bg-[#000000] min-h-screen w-full">
+    <div className="relative min-h-screen w-full">
       <Navbar/>
       <HeroSection/>
+      <PricingPage/>
       <Particles
         className="absolute inset-0"
         quantity={100}
