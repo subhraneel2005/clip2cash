@@ -1,9 +1,82 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
-import { Check } from "lucide-react"
+'use client'
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Check } from "lucide-react";
+
+interface RazorpayOrderResponse {
+  id: string;
+  amount: number;
+  currency: string;
+}
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
+const loadRazorpayScript = (src: string) => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 export default function PricingPage() {
+
+  const handlePayment = async (amount: number) => {
+    const isRazorpayLoaded = await loadRazorpayScript("https://checkout.razorpay.com/v1/checkout.js");
+
+    if (!isRazorpayLoaded) {
+      alert("Failed to load Razorpay. Please try again.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount }), // amount in the smallest currency unit (e.g., 100 for ₹1)
+      });
+
+      const orderData: RazorpayOrderResponse = await response.json();
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
+        amount: orderData.amount.toString(),
+        currency: orderData.currency,
+        name: "Your Plan",
+        image: "/logo.png",
+        description: "Get your SaaS kit for one-time payment",
+        order_id: orderData.id,
+        handler: function (response: any) {
+          alert("Payment successful!");
+        },
+        prefill: {
+          name: "Your Name",
+          email: "email@example.com",
+          contact: "1234567890",
+        },
+        theme: {
+          color: "#1E201E"
+        },
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (error) {
+      console.error("Error during payment", error);
+      alert("There was an error initiating the payment. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -28,7 +101,7 @@ export default function PricingPage() {
             {
               title: "Basic",
               description: "A basic plan for startups and individual users",
-              price: "10",
+              price: 84000,
               features: [
                 "AI-powered analytics",
                 "Basic support",
@@ -39,7 +112,7 @@ export default function PricingPage() {
             {
               title: "Premium",
               description: "A premium plan for growing businesses",
-              price: "20",
+              price: 168200,
               features: [
                 "Advanced AI insights",
                 "Priority support",
@@ -52,7 +125,7 @@ export default function PricingPage() {
             {
               title: "Enterprise",
               description: "An enterprise plan with advanced features for large organizations",
-              price: "50",
+              price: 252400,
               features: [
                 "Custom AI solutions",
                 "24/7 dedicated support",
@@ -65,7 +138,7 @@ export default function PricingPage() {
             {
               title: "Ultimate",
               description: "The ultimate plan with all features for industry leaders",
-              price: "80",
+              price: 336500,
               features: [
                 "Bespoke AI development",
                 "White-glove support",
@@ -78,20 +151,21 @@ export default function PricingPage() {
           ].map((plan) => (
             <Card 
               key={plan.title}
-              className={`relative bg-zinc-900 border-zinc-800 ${
-                plan.highlight ? 'border-amber-500/50' : ''
-              }`}
+              className={`relative bg-zinc-900 border-zinc-800 ${plan.highlight ? 'border-amber-500/50' : ''}`}
             >
               <CardHeader>
                 <CardTitle className="text-xl font-semibold">{plan.title}</CardTitle>
                 <p className="text-sm text-zinc-400">{plan.description}</p>
                 <div className="mt-4 flex items-baseline">
-                  <span className="text-4xl font-bold">${plan.price}</span>
-                  <span className="ml-1 text-zinc-400">/month</span>
+                  <span className="text-4xl font-bold">₹{plan.price / 100}</span>
+                  <span className="ml-1 text-zinc-400">one time</span>
                 </div>
               </CardHeader>
               <CardContent>
-                <Button className="w-full bg-white text-black hover:bg-zinc-200">
+                <Button
+                  className="w-full bg-white text-black hover:bg-zinc-200"
+                  onClick={() => handlePayment(plan.price)}
+                >
                   Subscribe
                 </Button>
                 <ul className="mt-8 space-y-4">
@@ -108,5 +182,5 @@ export default function PricingPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

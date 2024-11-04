@@ -26,7 +26,11 @@
     "lucide-react": "^0.454.0",
     "next": "15.0.2",
     "next-auth": "^4.24.10",
+<<<<<<< HEAD
+    "razorpay": "^2.9.5",
+=======
     "nodemailer": "^6.9.16",
+>>>>>>> 22587092594c2798b8a4693ad5cb5de4f916e911
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-day-picker": "^8.10.1",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
