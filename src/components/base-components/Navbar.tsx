@@ -199,7 +199,7 @@ export default function Navbar() {
                     </Link>}
                 </NavigationMenuList>
               </NavigationMenu>
-              {session ? <span className='gap-1 flex'><img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/><Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button></span> : <Button onClick={() => signIn("google")} size={'sm'} variant={'secondary'}>Sign In</Button>}
+              {session ? <span className='gap-1 flex'><img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/><Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button></span> : <Link href={'/login'}><Button className="flex lg:hidden"size={'sm'} variant={'secondary'}>Sign In</Button></Link>}
             </nav>
           </SheetContent>
       </Sheet>
@@ -219,7 +219,7 @@ export default function Navbar() {
         <img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/>
         <Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
         </span> 
-      : <Button className="hidden lg:flex" onClick={() => signIn("google")} size={'sm'} variant={'secondary'}>Sign In</Button>}
+      : <Link href={'/login'}><Button className="hidden lg:flex"size={'sm'} variant={'secondary'}>Sign In</Button></Link>}
 
     </nav>
   )

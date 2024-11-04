@@ -4,7 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/lib/prisma';
 
- const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
@@ -21,6 +21,3 @@ import prisma from '@/lib/prisma';
   ],
   secret: process.env.NEXTAUTH_SECRET!,
 };
-
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
