@@ -21,7 +21,7 @@ export default function Login() {
             <p className="text-sm text-muted-foreground">Enter your email below to create your account</p>
           </div>
           <div className="grid gap-4">
-            <Button 
+            <Button
             onClick={() => {
               signIn('google', {callbackUrl:"/"})}}
             variant="outline">
