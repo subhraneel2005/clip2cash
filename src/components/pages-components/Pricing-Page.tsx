@@ -78,7 +78,7 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen p-4 bg-[url('/gb.png')] bg-center bg-cover">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="text-center flex-col flex justify-center items-center">
           <h2 className="text-base font-semibold">Pricing</h2>

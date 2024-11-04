@@ -83,7 +83,7 @@ export default function Navbar() {
       <div className="hidden lg:flex gap-2">
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem>
+            <NavigationMenuItem className="bg-transparent">
               <NavigationMenuTrigger>What you get</NavigationMenuTrigger>
               <NavigationMenuContent>
               <ul className="grid grid-cols-2 gap-3 p-4 md:w-[500px] lg:w-[600px]">
@@ -219,7 +219,7 @@ export default function Navbar() {
         <img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/>
         <Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
         </span> 
-      : <Link href={'/login'}><Button className="hidden lg:flex"size={'sm'} variant={'secondary'}>Sign In</Button></Link>}
+      : <Link className='lg:flex gap-1 hidden' href={'/login'}><Button className="hidden lg:flex"size={'sm'} variant={'secondary'}>Sign In</Button></Link>}
 
     </nav>
   )
