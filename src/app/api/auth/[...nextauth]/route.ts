@@ -34,15 +34,17 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET!,
   events: {
     async signIn({ user }) {
-      // Get the session to access the user's email
       const session = await getServerSession(authOptions);
       
       if (session?.user?.email) {
         const mailOptions = {
           from: process.env.FROM_EMAIL,
           to: session.user.email,
-          subject: 'Welcome to Our Website!',
-          text: `Hello ${session.user.name || 'User'}, welcome to our website! We're glad to have you.`,
+          subject: 'Welcome to GetStart!',
+          html: `
+              <p>Hello ${session.user.name || 'User'}, welcome to GetStart! We're glad to have you 😄.</p>
+              <p>To get started, please visit our <a href="https://github.com/Subhamay-Dey" target="_blank">GetStart Page</a>.</p>
+          `,
         };
 
         await transporter.sendMail(mailOptions);
