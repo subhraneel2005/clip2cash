@@ -3,8 +3,20 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/lib/prisma';
+import nodemailer from 'nodemailer';
+import { getServerSession } from 'next-auth';
 
- const authOptions: AuthOptions = {
+export const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+});
+
+export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
@@ -20,6 +32,25 @@ import prisma from '@/lib/prisma';
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET!,
+  events: {
+    async signIn({ user }) {
+      // Get the session to access the user's email
+      const session = await getServerSession(authOptions);
+      
+      if (session?.user?.email) {
+        const mailOptions = {
+          from: process.env.FROM_EMAIL,
+          to: session.user.email,
+          subject: 'Welcome to Our Website!',
+          text: `Hello ${session.user.name || 'User'}, welcome to our website! We're glad to have you.`,
+        };
+
+        await transporter.sendMail(mailOptions);
+      } else {
+        console.error("User email is missing. Cannot send welcome email.");
+      }
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
