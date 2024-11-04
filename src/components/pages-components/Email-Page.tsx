@@ -6,7 +6,7 @@ export default function EmailPage() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-[url('/gb.png')] bg-center bg-cover">
       <div className="w-full flex flex-col justify-center items-center px-4 py-8">
         <h2 className="mb-3 text-4xl py-3 w-full lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400">Get Early Access</h2>
         <p className="lg:max-w-[450px] max-w-[375px] px-3 bio text-[14px] lg:text-[18px] mb-8">

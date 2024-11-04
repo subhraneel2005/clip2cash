@@ -82,7 +82,7 @@ const ReviewCard = ({
 
 export default function SimpleTestimonial() {
   return (
-    <div className='relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
+    <div className='bg-[url("/gb.png")] bg-center bg-cover relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
         <h2 className="text-base text-sky-300">Testimonials</h2>
         <h1 className="mt-3 mb-4 text-3xl px-5 md:px-0 py-3 font-bold lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text text-transparent text-center dark:from-white dark:via-gray-200 dark:to-gray-400">What our customers are saying</h1>
         <Marquee pauseOnHover className="[--duration:20s]">
