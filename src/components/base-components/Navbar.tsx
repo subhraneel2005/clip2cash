@@ -77,6 +77,7 @@ export default function Navbar() {
         <h2 className="bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent text-xl font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400">
           Getstart
         </h2>
+        <img src="/logo.png" alt="logo" className="size-5" />
       </span>
     
     <div className="flex flex-row gap-4">
