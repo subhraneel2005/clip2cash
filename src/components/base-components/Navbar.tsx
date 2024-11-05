@@ -204,14 +204,6 @@ export default function Navbar() {
             </nav>
           </SheetContent>
       </Sheet>
-      { session &&
-        <Link href={"/dashboard"} className="hidden lg:flex">
-          <Button 
-            variant={"ghost"}
-          >
-          My Dashboard</Button>
-        </Link>}
-
         
     </div>
 
