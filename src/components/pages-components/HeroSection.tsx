@@ -11,7 +11,7 @@ export default function HeroSection() {
       <div 
         className='flex flex-col items-center justify-center text-center pt-10'>
           {/* Add your hero text here 👇 */}
-          <h1 className="lg:max-w-6xl text-4xl py-3 px-6 lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400">
+          <h1 className="lg:max-w-6xl text-4xl py-3 px-6 lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400 lg:mt-[50px]">
             Launch your product in a snap
           </h1>
 

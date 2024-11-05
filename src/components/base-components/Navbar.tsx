@@ -80,8 +80,8 @@ export default function Navbar() {
         <img src="/logo.png" alt="logo" className="size-5" />
       </span>
     
-    <div className="flex flex-row gap-4">
-      <div className="hidden lg:flex gap-2">
+    <div className="flex flex-row px-6">
+      <div className="hidden lg:flex">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem className="bg-transparent">

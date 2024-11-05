@@ -2,6 +2,7 @@
 
 import Footer from "@/components/base-components/Footer";
 import Navbar from "@/components/base-components/Navbar";
+import { BentoGridPage } from "@/components/pages-components/BenteogridPage";
 import EmailPage from "@/components/pages-components/Email-Page";
 import HeroSection from "@/components/pages-components/HeroSection";
 import PricingPage from "@/components/pages-components/Pricing-Page";
@@ -13,6 +14,7 @@ export default function Home() {
     <div className="relative min-h-screen w-full">
       <Navbar/>
       <HeroSection/>
+      <BentoGridPage/>
       <SimpleTestimonial/>
       <PricingPage/>
       <EmailPage/>
