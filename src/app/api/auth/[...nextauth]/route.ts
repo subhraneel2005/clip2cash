@@ -4,7 +4,6 @@ import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/lib/prisma';
 import nodemailer from 'nodemailer';
-import { getServerSession } from 'next-auth';
 
 export const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -34,22 +33,25 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET!,
   events: {
     async signIn({ user }) {
-      const session = await getServerSession(authOptions);
-      
-      if (session?.user?.email) {
+      // Log the user object to check if email is present
+      console.log("SignIn event triggered. User object:", user);
+
+      if (user?.email) {
         const mailOptions = {
           from: process.env.FROM_EMAIL,
-          to: session.user.email,
+          to: user.email,
           subject: 'Welcome to GetStart!',
-          html: `
-              <p>Hello ${session.user.name || 'User'}, welcome to GetStart! We're glad to have you 😄.</p>
-              <p>To get started, please visit our <a href="https://github.com/Subhamay-Dey" target="_blank">GetStart Page</a>.</p>
-          `,
+          text: `Hello ${user.name || 'User'}, welcome to GetStart! We're glad to have you 😄.`
         };
 
-        await transporter.sendMail(mailOptions);
+        try {
+          await transporter.sendMail(mailOptions);
+          console.log("Welcome email sent successfully.");
+        } catch (error) {
+          console.error("Error sending welcome email:", error);
+        }
       } else {
-        console.error("User email is missing. Cannot send welcome email.");
+        console.error("User email is missing or null. Cannot send welcome email.");
       }
     },
   },

@@ -8,7 +8,7 @@ import { signIn } from 'next-auth/react';
 
 export default function Login() {
   return (
-    <div className="grid min-h-screen grid-cols-1 md:grid-cols-2">
+    <div className="bg-[url('/gradientBg2.png')] bg-center bg-cover grid min-h-screen grid-cols-1 md:grid-cols-2">
       <div className="relative hidden flex-col justify-between p-10 dark:border-r md:flex">
         <div className="flex items-center space-x-2 h-full">
           <img src="/sidePic.png" alt="sidepic" />
