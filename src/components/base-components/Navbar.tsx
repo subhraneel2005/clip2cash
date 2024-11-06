@@ -75,7 +75,7 @@ export default function Navbar() {
     <nav className="absolute top-0 py-6 px-6 lg:px-10 flex justify-between items-center w-full z-10">
       <span className="flex gap-2 items-center">
         <h2 className="bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent text-xl font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400">
-          Getstart
+          Your logo
         </h2>
         <img src="/logo.png" alt="logo" className="size-5" />
       </span>
