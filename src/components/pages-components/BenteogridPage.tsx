@@ -111,7 +111,7 @@ export function BentoGridPage() {
 
     <div className="min-h-screen w-full flex flex-col justify-center items-center bg-[url('/gb.png')] bg-center bg-cover">
         <h1 className="mt-[36px] mb-4 text-3xl px-5 md:px-0 py-3 font-bold lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text text-transparent text-center dark:from-white dark:via-gray-200 dark:to-gray-400">How it works</h1>
-        <BentoGrid className="lg:px-[350px] px-[30px] md:px-[100px]">
+        <BentoGrid className="xl:px-[350px] px-[30px] md:px-[170px]">
         {features.map((feature, idx) => (
             <BentoCard key={idx} {...feature} />
         ))}
