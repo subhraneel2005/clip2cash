@@ -30,6 +30,7 @@
     "next-auth": "^4.24.10",
     "next-themes": "^0.4.3",
     "nodemailer": "^6.9.16",
+    "razorpay": "^2.9.5",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-day-picker": "^8.10.1",
     "react-dom": "19.0.0-rc-02c0e824-20241028",

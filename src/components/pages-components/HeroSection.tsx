@@ -28,7 +28,16 @@ export default function HeroSection() {
           </Button>
       </div>
       <div className='px-3'>
-      <img src='/aiImg.jpg' alt='aihero' className='border-2 border-zinc-400 rounded-[16px] md:mt-10 mt-4'/>
+      <video
+        className="rounded-xl border-2 border-zinc-600 max-w-[360px] lg:max-w-[800px]"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/vid.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   );
