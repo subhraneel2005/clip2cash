@@ -4,7 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/lib/prisma';
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
