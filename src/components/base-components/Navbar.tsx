@@ -72,7 +72,7 @@ export default function Navbar() {
     const { data: session } = useSession()
 
   return (
-    <nav className="absolute top-0 py-6 px-7 lg:px-10 flex justify-between items-center w-full z-10">
+    <nav className="absolute top-0 py-6 px-6 lg:px-10 flex justify-between items-center w-full z-10">
       <span className="flex gap-2 items-center">
         <h2 className="bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent text-xl font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400">
           Getstart
@@ -80,7 +80,7 @@ export default function Navbar() {
         <img src="/logo.png" alt="logo" className="size-5" />
       </span>
     
-    <div className="flex flex-row px-6">
+    <div className="flex flex-row">
       <div className="hidden lg:flex">
         <NavigationMenu>
           <NavigationMenuList>
