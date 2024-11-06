@@ -111,7 +111,6 @@ const CheckoutPage = () => {
         theme: {
           color: "#1E201E",
         },
-        // Add the display_currency and display_amount to properly handle USD display
         display_currency: currency,
         display_amount: (currency === "USD" ? priceUSD : priceINR).toString(),
       };
@@ -125,14 +124,14 @@ const CheckoutPage = () => {
   };
 
   return price !== null ? (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[url('/gb.png')] bg-center bg-cover flex items-center justify-center p-4">
       <div className="max-w-6xl w-full h-full overflow-hidden flex flex-col md:flex-row">
         <div className="flex flex-col md:flex-row h-full gap-8 justify-center items-center">
-          <div className="md:w-1/2 relative h-full">
+          <div className="md:w-1/2 relative h-full ">
             <Image
               width={700}
               height={700}
-              src="/getstart-mac.jpg"
+              src="/sidePicDesktop.png"
               alt="Getkit product image"
               style={{ objectFit: 'cover' }}
             />
