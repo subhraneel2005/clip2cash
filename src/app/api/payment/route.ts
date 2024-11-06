@@ -7,10 +7,13 @@ const razorpay = new Razorpay({
 });
 
 export async function POST(req:Request){
-    const {amount} = await req.json();
+    const {amount, currency} = await req.json();
+    if(!amount || !currency) {
+        return NextResponse.json({message: "Invalid payment details"}, {status: 400})
+    }
     const order  = await razorpay.orders.create({
         amount,
-        currency: "INR",
+        currency,
     });
 
     return NextResponse.json(order);

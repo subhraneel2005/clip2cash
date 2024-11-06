@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,14 +34,13 @@ declare global {
   }
 }
 
-const CheckoutPage: React.FC = () => {
+const CheckoutPage = () => {
   const { id } = useParams();
   const [currency, setCurrency] = useState<'USD' | 'INR'>('INR');
   const [priceINR, setPriceINR] = useState<number | null>(null);
   const [priceUSD, setPriceUSD] = useState<number | null>(null);
   const [price, setPrice] = useState<number | null>(null);
 
-  // Set the prices when the plan ID or currency changes
   useEffect(() => {
     const planData = {
       basic: { priceINR: 840, priceUSD: 10, title: "Basic" },
@@ -79,10 +78,9 @@ const CheckoutPage: React.FC = () => {
     }
 
     try {
-      // Calculate amount based on currency
+
       const amount = currency === "USD" ? priceUSD * 100 : priceINR * 100;
 
-      // Create order with the backend
       const response = await fetch("/api/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -113,8 +111,11 @@ const CheckoutPage: React.FC = () => {
         theme: {
           color: "#1E201E",
         },
+        // Add the display_currency and display_amount to properly handle USD display
+        display_currency: currency,
+        display_amount: (currency === "USD" ? priceUSD : priceINR).toString(),
       };
-
+      
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
     } catch (error) {
