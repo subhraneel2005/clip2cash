@@ -11,7 +11,7 @@ import Particles from "@/components/ui/particles";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen w-full">
+    <div className="relative min-h-screen w-full overflow-x-hidden">
       <Navbar/>
       <HeroSection/>
       <BentoGridPage/>
