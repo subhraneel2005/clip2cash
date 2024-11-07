@@ -120,9 +120,11 @@ export default function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink>
-                <Button variant="ghost" size="lg">
-                  How it Works
-                </Button>
+                <Link href={"/dashboard"}>
+                  <Button variant="ghost" size="lg">
+                    Dashboard
+                  </Button>
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -182,13 +184,11 @@ export default function Navbar() {
                   </NavigationMenuItem>
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <Button
-                        size={'lg'}
-                        variant="ghost"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        How it Works
+                    <Link href={"/dashboard"}>
+                      <Button variant="ghost" size="lg">
+                        Dashboard
                       </Button>
+                    </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                   { session &&
