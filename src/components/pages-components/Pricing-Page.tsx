@@ -1,88 +1,80 @@
-'use client'
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-interface RazorpayOrderResponse {
-  id: string;
-  amount: number;
-  currency: string;
-}
+export default function PricingSection() {
+  const router = useRouter();
 
-declare global {
-  interface Window {
-    Razorpay: any;
-  }
-}
-
-const loadRazorpayScript = (src: string) => {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
-    document.body.appendChild(script);
-  });
-};
-
-export default function PricingPage() {
-
-  const handlePayment = async (amount: number) => {
-    const isRazorpayLoaded = await loadRazorpayScript("https://checkout.razorpay.com/v1/checkout.js");
-
-    if (!isRazorpayLoaded) {
-      alert("Failed to load Razorpay. Please try again.");
-      return;
+  const plans = [
+    {
+      title: "Basic",
+      description: "A basic plan for startups and individual users",
+      price: 84000,
+      features: [
+        "AI-powered analytics",
+        "Basic support",
+        "5 projects limit",
+        "Access to basic AI tools"
+      ],
+      route: "/checkout/basic"
+    },
+    {
+      title: "Premium",
+      description: "A premium plan for growing businesses",
+      price: 168200,
+      features: [
+        "Advanced AI insights",
+        "Priority support",
+        "Unlimited projects",
+        "Access to all AI tools",
+        "Custom integrations"
+      ],
+      highlight: true,
+      route: "/checkout/premium"
+    },
+    {
+      title: "Enterprise",
+      description: "An enterprise plan with advanced features for large organizations",
+      price: 252400,
+      features: [
+        "Custom AI solutions",
+        "24/7 dedicated support",
+        "Unlimited projects",
+        "Access to all AI tools",
+        "Custom integrations",
+        "Data security and compliance"
+      ],
+      route: "/checkout/enterprise"
+    },
+    {
+      title: "Ultimate",
+      description: "The ultimate plan with all features for industry leaders",
+      price: 336500,
+      features: [
+        "Bespoke AI development",
+        "White-glove support",
+        "Unlimited projects",
+        "Priority access to new AI tools",
+        "Custom integrations",
+        "Highest data security and compliance"
+      ],
+      route: "/checkout/ultimate"
     }
-
-    try {
-      const response = await fetch("/api/payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount }), // amount in the smallest currency unit (e.g., 100 for ₹1)
-      });
-
-      const orderData: RazorpayOrderResponse = await response.json();
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
-        amount: orderData.amount.toString(),
-        currency: orderData.currency,
-        name: "Your Plan",
-        image: "/logo.png",
-        description: "Get your SaaS kit for one-time payment",
-        order_id: orderData.id,
-        handler: function (response: any) {
-          alert("Payment successful!");
-        },
-        prefill: {
-          name: "Your Name",
-          email: "email@example.com",
-          contact: "1234567890",
-        },
-        theme: {
-          color: "#1E201E"
-        },
-      };
-
-      const rzp1 = new window.Razorpay(options);
-      rzp1.open();
-    } catch (error) {
-      console.error("Error during payment", error);
-      alert("There was an error initiating the payment. Please try again.");
-    }
-  };
+  ];
 
   return (
     <div className="min-h-screen p-4 bg-[url('/gb.png')] bg-center bg-cover">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
         <div className="text-center flex-col flex justify-center items-center">
           <h2 className="text-base font-semibold">Pricing</h2>
-          <h1 className="mt-3 text-4xl py-3 font-bold lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text text-transparent text-center dark:from-white dark:via-gray-200 dark:to-gray-400">Simple pricing for everyone.</h1>
+          <h1 className="mt-3 text-4xl py-3 font-bold lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text text-transparent text-center dark:from-white dark:via-gray-200 dark:to-gray-400">
+            Simple pricing for everyone.
+          </h1>
           <p className="md:max-w-xl max-w-[375px] mt-5 px-3 bio text-[14px] lg:text-[18px]">
             Choose an <span className="font-semibold">affordable plan</span> that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales.
           </p>
@@ -97,59 +89,8 @@ export default function PricingPage() {
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-4 lg:gap-8">
-          {[
-            {
-              title: "Basic",
-              description: "A basic plan for startups and individual users",
-              price: 84000,
-              features: [
-                "AI-powered analytics",
-                "Basic support",
-                "5 projects limit",
-                "Access to basic AI tools"
-              ]
-            },
-            {
-              title: "Premium",
-              description: "A premium plan for growing businesses",
-              price: 168200,
-              features: [
-                "Advanced AI insights",
-                "Priority support",
-                "Unlimited projects",
-                "Access to all AI tools",
-                "Custom integrations"
-              ],
-              highlight: true
-            },
-            {
-              title: "Enterprise",
-              description: "An enterprise plan with advanced features for large organizations",
-              price: 252400,
-              features: [
-                "Custom AI solutions",
-                "24/7 dedicated support",
-                "Unlimited projects",
-                "Access to all AI tools",
-                "Custom integrations",
-                "Data security and compliance"
-              ]
-            },
-            {
-              title: "Ultimate",
-              description: "The ultimate plan with all features for industry leaders",
-              price: 336500,
-              features: [
-                "Bespoke AI development",
-                "White-glove support",
-                "Unlimited projects",
-                "Priority access to new AI tools",
-                "Custom integrations",
-                "Highest data security and compliance"
-              ]
-            }
-          ].map((plan) => (
-            <Card 
+          {plans.map((plan) => (
+            <Card
               key={plan.title}
               className={`relative bg-zinc-900 border-zinc-800 ${plan.highlight ? 'border-amber-500/50' : ''}`}
             >
@@ -164,7 +105,7 @@ export default function PricingPage() {
               <CardContent>
                 <Button
                   className="w-full bg-white text-black hover:bg-zinc-200"
-                  onClick={() => handlePayment(plan.price)}
+                  onClick={() => router.push(plan.route)}
                 >
                   Subscribe
                 </Button>
