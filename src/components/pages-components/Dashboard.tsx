@@ -84,7 +84,7 @@ const tabContents: TabContent[] = [
     content: (
       <div className="grid gap-4">
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <Card>
+          <Card className="bg-background/60 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
               <span className="text-muted-foreground text-xs">$45,231.89</span>
@@ -94,7 +94,7 @@ const tabContents: TabContent[] = [
               <p className="text-xs text-muted-foreground">+20.1% from last month</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-background/60 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
               <span className="text-muted-foreground">+2350</span>
@@ -104,7 +104,7 @@ const tabContents: TabContent[] = [
               <p className="text-xs text-muted-foreground">+180.1% from last month</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-background/60 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Sales</CardTitle>
               <span className="text-muted-foreground">+12,234</span>
@@ -114,7 +114,7 @@ const tabContents: TabContent[] = [
               <p className="text-xs text-muted-foreground">+19% from last month</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-background/60 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Active Now</CardTitle>
               <span className="text-muted-foreground">+573</span>
@@ -126,7 +126,7 @@ const tabContents: TabContent[] = [
           </Card>
         </div>
         <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
-          <Card className="lg:col-span-4">
+          <Card className="lg:col-span-4 bg-background/60 backdrop-blur-sm">
             <CardHeader>
               <CardTitle>Overview</CardTitle>
               <CardDescription>January - June 2024</CardDescription>
@@ -145,7 +145,7 @@ const tabContents: TabContent[] = [
               </div>
             </CardFooter>
           </Card>
-          <Card className="lg:col-span-3">
+          <Card className="lg:col-span-3 bg-background/60 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-2xl">Recent Sales</CardTitle>
             </CardHeader>
@@ -175,7 +175,7 @@ const tabContents: TabContent[] = [
     description: "Detailed analysis of your business metrics",
     content: (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
+        <Card className="bg-background/60 backdrop-blur-sm">
           <CardHeader>
             <CardTitle>User Growth</CardTitle>
           </CardHeader>
@@ -193,7 +193,7 @@ const tabContents: TabContent[] = [
     description: "Generate and view detailed reports",
     content: (
       <div className="grid gap-4">
-        <Card>
+        <Card className="bg-background/60 backdrop-blur-sm">
           <CardHeader>
             <CardTitle>Monthly Reports</CardTitle>
           </CardHeader>
@@ -211,7 +211,7 @@ const tabContents: TabContent[] = [
     description: "Manage your notification preferences",
     content: (
       <div className="grid gap-4">
-        <Card>
+        <Card className="bg-background/60 backdrop-blur-sm">
           <CardHeader>
             <CardTitle>Notification Settings</CardTitle>
           </CardHeader>
@@ -237,7 +237,7 @@ export default function Dashboard() {
   const {data:session} = useSession();
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-background p-4 md:p-6">
+    <div className="flex min-h-screen w-full flex-col bg-background p-4 md:p-6 bg-[url('/gb.png')] bg-cover bg-no-repeat">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">Dashboard</h1>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">

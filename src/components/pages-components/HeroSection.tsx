@@ -26,11 +26,11 @@ export default function HeroSection() {
             The hero description goes here. This is a great place to tell your story and showcase your brand. Your awesome description.
           </p>
           {/* Add your CTA button here 👇 */}
-          <Button className='mb-12'>
+          <Button className='mb-12 group flex items-center gap-2'>
             <p>Get Started</p>
-            <motion.div whileHover={{x:5}}>
-            <ArrowRightIcon/>
-            </motion.div>
+            <div className="transition-transform transform group-hover:translate-x-1 duration-500">
+              <ArrowRightIcon/>
+            </div>
           </Button>
       </div>
       <div className='px-3'>
