@@ -18,9 +18,7 @@ export default function HeroSection() {
 
           {/* Add your hero description here 👇 */}
           <p className='text-[14px] md:text-[15px] text-zinc-400 px-5 max-w-[500px] mb-5 pt-2'>
-            The hero description goes here. This is a great place to tell your story and showcase your brand.
-
-
+            The hero description goes here. This is a great place to tell your story and showcase your brand. Your awesome description.
           </p>
 
           {/* Add your CTA button here 👇 */}
