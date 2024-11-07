@@ -133,9 +133,7 @@ const tabContents: TabContent[] = [
             </CardHeader>
             <CardContent>
               <div className="w-full overflow-x-auto">
-                <div className="h-[300px] sm:h-[400px] md:h-[500px] lg:h-[800px] min-w-[300px]">
                   <ClientChart chartData={chartData} />
-                </div>
               </div>
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm">
