@@ -3,6 +3,9 @@ import React from 'react'
 import { Button } from '../ui/button';
 import { ArrowRightIcon } from 'lucide-react';
 import {motion} from "framer-motion"
+import AnimatedShinyText from '../ui/animated-shiny-text';
+import Link from 'next/link';
+import { AnimatedShinyTextDemo } from '../base-components/AnimatedShinyTextDemo';
 
 export default function HeroSection() {
   
@@ -11,12 +14,14 @@ export default function HeroSection() {
       {/* Hero Texts 📝 */}
       <div 
         className='flex flex-col items-center justify-center text-center pt-10'>
+            {/* Self Promotion 😋  */}
+            <AnimatedShinyTextDemo/>
           {/* Add your hero text here 👇 */}
           <motion.h1
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="lg:max-w-6xl text-4xl py-3 px-6 lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400 lg:mt-[50px]"
+              className="lg:max-w-6xl text-4xl py-3 px-6 lg:text-6xl bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400"
             >
             Your awesome hero text here
           </motion.h1>
