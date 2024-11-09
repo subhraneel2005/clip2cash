@@ -16,7 +16,7 @@ export default function Home() {
       <HeroSection/>
       <BentoGridPage/>
       <SimpleTestimonial/>
-      <PricingPage/>
+      <PricingPage/> 
       <EmailPage/>
       <Footer/>
       <Particles
