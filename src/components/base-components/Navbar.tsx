@@ -80,7 +80,7 @@ export default function Navbar() {
         <img src="/logo.png" alt="logo" className="size-6 lg:size-7" />
       </span>
     
-    <div className="flex flex-row">
+    {/* <div className="flex flex-row">
       <div className="hidden lg:flex">
         <NavigationMenu>
           <NavigationMenuList>
@@ -175,10 +175,10 @@ export default function Navbar() {
           </SheetContent>
       </Sheet>
         
-    </div>
+    </div> */}
 
       {session ? 
-        <span className='lg:flex gap-1 hidden'>
+        <span className='flex gap-1'>
         <img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/>
         <Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
         </span> 
