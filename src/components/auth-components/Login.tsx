@@ -8,12 +8,7 @@ import { signIn } from 'next-auth/react';
 
 export default function Login() {
   return (
-    <div className="bg-[url('/gradientBg2.png')] bg-center bg-cover grid min-h-screen grid-cols-1 md:grid-cols-2">
-      <div className="relative hidden flex-col justify-between p-10 dark:border-r md:flex">
-        <div className="flex items-center space-x-2 h-full">
-          <img src="/sidePic.png" alt="sidepic" />
-        </div>
-      </div>
+    <div className="bg-[url('/backgroundGlows/greenGlow.png')] bg-center bg-cover min-h-screen flex items-center justify-center">
       <div className="flex items-center justify-center px-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
@@ -22,9 +17,9 @@ export default function Login() {
           </div>
           <div className="grid gap-4">
             <Button
-            onClick={() => {
-              signIn('google', {callbackUrl:"/"})}}
-            variant="outline">
+              onClick={() => {
+                signIn('google', {callbackUrl:"/"})}}
+              variant="outline">
               <svg viewBox="0 0 24 24" className="mr-2 h-4 w-4">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -48,7 +43,7 @@ export default function Login() {
             <Button
               onClick={() => {
                 signIn('github', {callbackUrl:"/"})}}
-             variant="outline">
+              variant="outline">
               <GitHubLogoIcon className="mr-2 h-4 w-4" />
               GitHub
             </Button>

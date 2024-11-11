@@ -17,6 +17,7 @@ model User {
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
+  snippets      Snippet[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -84,4 +85,17 @@ model BetaUsers {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
   createdAt DateTime @default(now())
+}
+
+model Snippet {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   @db.ObjectId
+  content       String
+  summary       String
+  customization Json
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }

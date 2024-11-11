@@ -16,6 +16,13 @@ text-align: center;
 color: rgba(255, 255, 255, 0.67);
 }
 
+.text-instagram-gradient {  
+  background: linear-gradient(to right, #8a3ab9, #bc2a8d, #fccc63, #fbad50);
+  background-clip: text; 
+  -webkit-background-clip: text;  
+  -webkit-text-fill-color: transparent;  
+} 
+
 
 @layer base {
   :root {

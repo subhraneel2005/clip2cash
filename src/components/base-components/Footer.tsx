@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="w-full py-6 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
         <div className="text-sm text-gray-500">
-          © {currentYear} Getstart. All rights reserved.
+          © {currentYear} TinySnippet. All rights reserved.
         </div>
         <nav className="flex space-x-4">
           <Link href="https://facebook.com" className="text-gray-400 hover:text-gray-500">

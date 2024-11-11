@@ -74,31 +74,16 @@ export default function Navbar() {
   return (
     <nav className="absolute top-0 py-6 px-6 lg:px-10 flex justify-between items-center w-full z-10">
       <span className="flex gap-2 items-center">
-        <h2 className="bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent text-xl font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400">
-          Your logo
+        <h2 className="bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text tracking-tighter text-transparent text-sm lg:text-lg font-black text-center dark:from-white dark:via-gray-200 dark:to-gray-400">
+          TinySnippet
         </h2>
-        <img src="/logo.png" alt="logo" className="size-5" />
+        <img src="/logo.png" alt="logo" className="size-6 lg:size-7" />
       </span>
     
     <div className="flex flex-row">
       <div className="hidden lg:flex">
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem className="bg-transparent">
-              <NavigationMenuTrigger>What you get</NavigationMenuTrigger>
-              <NavigationMenuContent>
-              <ul className="grid grid-cols-2 gap-3 p-4 md:w-[500px] lg:w-[600px]">
-                {components.map((component) => (
-                  <div key={component.title} className="flex items-center justify-center space-x-2">
-                    <img src={component.image} alt={`${component.title} icon`} className="w-6 h-6" />
-                    <ListItem title={component.title}>
-                      {component.description}
-                    </ListItem>
-                  </div>
-                ))}
-              </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuTrigger>Use Cases</NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -140,25 +125,10 @@ export default function Navbar() {
           <SheetContent side="left" className="w-[300px] sm:w-[350px]">
             <nav className="flex flex-col space-y-4">
               <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
-                <span className="font-bold text-lg">Getstart</span>
+                <span className="font-bold text-lg">TinySnippet</span>
               </Link>
               <NavigationMenu orientation="vertical">
                 <NavigationMenuList className="flex-col items-start space-y-2">
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>What you get</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[calc(300px-2rem)] gap-3 p-4 sm:w-[calc(350px-2rem)]">
-                        {components.map((component) => (
-                          <div key={component.title} className="flex items-center justify-center space-x-2">
-                          <img src={component.image} alt={`${component.title} icon`} className="w-6 h-6" />
-                          <ListItem title={component.title}>
-                            {component.description}
-                          </ListItem>
-                        </div>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Use Cases</NavigationMenuTrigger>
                     <NavigationMenuContent>
