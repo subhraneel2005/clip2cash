@@ -7,9 +7,11 @@ import { AnimatedShinyTextDemo } from "../base-components/AnimatedShinyTextDemo"
 
 export default function EmailPage() {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await fetch("/api/betaUsers", {
         method: "POST",
@@ -30,6 +32,7 @@ export default function EmailPage() {
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -60,8 +63,8 @@ export default function EmailPage() {
             onChange={(e) => setEmail(e.target.value)}
             className="lg:max-w-[500px] max-w-[230px] px-3 border border-white bg-zinc-700"
           />
-          <Button type="submit" className="max-w-xs" size="sm">
-            Join waitlist
+          <Button type="submit" className="max-w-xs" size="sm" disabled={isLoading}>
+            {isLoading ? "Joining..." : "Join waitlist"}
           </Button>
         </form>
       </div>
