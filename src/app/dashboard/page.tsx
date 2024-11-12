@@ -1,8 +1,8 @@
-import Dashboard from '@/components/pages-components/Dashboard'
+import SnippetDashboard from '@/components/pages-components/SnippetDashboard'
 import React from 'react'
 
 export default function page() {
   return (
-    <Dashboard/>
+    <SnippetDashboard/>
   )
 }

@@ -15,9 +15,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  // Optional for WebAuthn support
   Authenticator Authenticator[]
-  snippets      Snippet[]
+  snippet       SnippetCard?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -87,15 +86,25 @@ model BetaUsers {
   createdAt DateTime @default(now())
 }
 
-model Snippet {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId        String   @db.ObjectId
-  content       String
-  summary       String
-  customization Json
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  user          User     @relation(fields: [userId], references: [id])
+model SnippetCard {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String      @unique @db.ObjectId
+  name       String
+  bio        String
+  banner     String
+  twitter    String
+  github     String
+  linkedin   String
+  website    String
+  youtube    String
+  peerlist   String
+  instagram  String
+  magicLinks MagicLink[]
+  createdAt  DateTime    @default(now())
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  @@index([userId])
+type MagicLink {
+  name String
+  url  String
 }
