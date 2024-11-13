@@ -182,7 +182,7 @@ export default function Navbar() {
         <img className='size-8 mr-4 rounded-full' src={session?.user?.image!} alt='user pfp'/>
         <Button size={'sm'} variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
         </span> 
-      : <Link className='lg:flex gap-1 hidden' href={'/login'}><Button className="hidden lg:flex"size={'sm'} variant={'secondary'}>Sign In</Button></Link>}
+      : <Link className='flex gap-1' href={'/login'}><Button className="flex"size={'sm'} variant={'secondary'}>Sign In</Button></Link>}
 
     </nav>
   )
