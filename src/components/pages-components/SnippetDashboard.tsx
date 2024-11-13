@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { FaTwitter, FaGithub, FaLinkedin, FaGlobe, FaInstagram } from 'react-icons/fa'
+import { SocialMediaGraphs } from '../base-components/SocialMediaGraphs'
 
 interface MagicLink {
   name: string
@@ -134,7 +135,6 @@ export default function SnippetDashboard() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...editedData,
-          // Remove the /cards/ prefix from banner path before sending to API
           banner: editedData.banner?.replace('/cards/', '')
         }),
       })
@@ -191,9 +191,16 @@ export default function SnippetDashboard() {
 
   return (
     <div className='bg-white flex flex-col justify-center items-center min-h-screen w-full gap-4'>
+       <h2 className="mb-0 text-3xl w-full lg:text-5xl tracking-tighter font-black text-center py-3 mt-6">
+          <span className="ml-2">✨</span>
+          <span className="bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text text-transparent">
+            Preview
+          </span>
+          <span className="ml-2">✨</span>
+        </h2>
       <SnippetCard {...snippetData} />
       
-      <div className="flex flex-col sm:flex-row gap-2 mt-10">
+      <div className="flex flex-col sm:flex-row gap-2 mt-3">
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline" className="gap-2">
@@ -323,6 +330,14 @@ export default function SnippetDashboard() {
           Share Snippet
         </Button>
       </div>
+
+      <h2 className="mb-0 text-3xl w-full lg:text-5xl tracking-tighter font-black text-center py-3 pt-32">
+          <span className="bg-gradient-to-b from-gray-900 via-black to-gray-600 bg-clip-text text-transparent">
+            Daily Clicks
+          </span>
+          <span className="ml-2">🔄</span>
+        </h2>
+      <SocialMediaGraphs/>
     </div>
   )
 }
