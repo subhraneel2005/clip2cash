@@ -3,8 +3,8 @@ import "./globals.css";
 import SessionProviderWrapper from "@/lib/SessionProviderWrapper"
 import { Toaster } from "@/components/ui/sonner";
 export const metadata: Metadata = {
-  title: "TinySnippet",
-  description: "Create engaging snippets from long form content",
+  title: "Clip2Cash",
+  description: "Create viral content in seconds",
 };
 
 export default function RootLayout({
@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en">
-        <body className="dark">
+      <html lang="en" data-theme="acid">
+        <body>
           <SessionProviderWrapper>
             <Toaster richColors position="top-right"/>
             {children}

@@ -16,7 +16,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
-  snippet       SnippetCard?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -78,33 +77,4 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, credentialID])
-}
-
-model BetaUsers {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  createdAt DateTime @default(now())
-}
-
-model SnippetCard {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String      @unique @db.ObjectId
-  name       String
-  bio        String
-  banner     String
-  twitter    String
-  github     String
-  linkedin   String
-  website    String
-  youtube    String
-  peerlist   String
-  instagram  String
-  magicLinks MagicLink[]
-  createdAt  DateTime    @default(now())
-  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-type MagicLink {
-  name String
-  url  String
 }
