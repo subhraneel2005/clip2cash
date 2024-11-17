@@ -1,7 +1,28 @@
-import Link from "next/link";
+'use client'
 
+import Link from "next/link";
+import { useRouter } from "next/navigation"
+import { useState } from "react";
+import { useSession } from "next-auth/react"
 
 export default function EmailPage() {
+  const [showToast, setShowToast] = useState(false);
+  const router = useRouter();
+  const session = useSession();
+  const user = session?.data?.user;
+
+  const handleGetStarted = () => {
+
+    const isAuthenticated = user ? true : false; 
+
+    if (!isAuthenticated) {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000); 
+    } else {
+      router.push("/create");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-full flex flex-col justify-center items-center px-4 py-8">
@@ -21,7 +42,23 @@ export default function EmailPage() {
         <p className="lg:max-w-[450px] max-w-[275px] px-3 text-lg lg:text-xl text-zinc-500 font-semibold leading-6 text-center mt-6 mb-6">
           Grow your faceless channel. Generate viral shorts. Earn money from reels💰.
         </p>
-        <button className="btn btn-success">Get Started</button>
+        <button 
+          onClick={handleGetStarted} 
+          className="btn btn-success"
+        >
+          Get Started <img src="/zap.svg" alt="zap" className="w-4 h-4" />
+        </button>
+
+        {showToast && (
+          <div className="toast toast-center">
+            <div className="alert alert-warning">
+                <span className="flex items-center gap-2">
+                  <img src="/alert-triangle.svg" alt="warning" className="w-4 h-4" />
+                  Not logged in
+                </span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
