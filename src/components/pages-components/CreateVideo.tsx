@@ -28,7 +28,7 @@ export default function CreateVideo() {
       case "story":
         return <Story onNext={handleNextSection} />;
       case "font":
-        return <FontStyle onNext={handleNextSection} />;
+        return <FontStyle onNext={handleNextSection}/>;
       case "video":
         return <Video onNext={handleNextSection} />;
       case "voice":
