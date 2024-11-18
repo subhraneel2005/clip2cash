@@ -10,6 +10,7 @@ export default function AiVoiceover() {
         <p>AI Voiceover controls and settings...</p>
         <button className="btn mt-4 btn-wide btn-success">
           Generate Video
+          <img src="/zap.svg" alt="zap" className="w-4 h-4" />
         </button>
       </div>
     </div>
