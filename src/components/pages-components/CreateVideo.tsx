@@ -8,6 +8,10 @@ import AiVoiceover from "../Video-Components/AiVoiceover";
 
 export default function CreateVideo() {
   const [activeSection, setActiveSection] = useState("story");
+  const [storyText, setStoryText] = useState("");
+  const [selectedFont, setSelectedFont] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState("");
+  const [selectedVoice, setSelectedVoice] = useState("");
 
   const handleNextSection = () => {
     switch (activeSection) {
@@ -26,13 +30,35 @@ export default function CreateVideo() {
   const renderContent = () => {
     switch (activeSection) {
       case "story":
-        return <Story onNext={handleNextSection} />;
+        return (
+          <Story 
+            onNext={handleNextSection} 
+            onStoryChange={setStoryText}
+          />
+        );
       case "font":
-        return <FontStyle onNext={handleNextSection}/>;
+        return (
+          <FontStyle 
+            onNext={handleNextSection}
+            onFontSelect={setSelectedFont}
+          />
+        );
       case "video":
-        return <Video onNext={handleNextSection} />;
+        return (
+          <Video 
+            onNext={handleNextSection}
+            onVideoSelect={setSelectedVideo}
+          />
+        );
       case "voice":
-        return <AiVoiceover />;
+        return (
+          <AiVoiceover 
+            onVoiceSelect={setSelectedVoice}
+            story={storyText}
+            fontStyle={selectedFont}
+            backgroundVideo={selectedVideo}
+          />
+        );
       default:
         return null;
     }
