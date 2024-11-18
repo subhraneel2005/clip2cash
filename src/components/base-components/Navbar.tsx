@@ -62,23 +62,6 @@ export default function Navbar() {
             </button>
           </Link>
         )}
-
-        {/* Optional: Dropdown menu for mobile */}
-        <div className="dropdown dropdown-end lg:hidden">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
-            <Menu />
-          </label>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            {useCases.map((useCase, index) => (
-              <li key={index}>
-                <a>
-                  <h3 className="font-medium">{useCase.title}</h3>
-                  <p className="text-sm opacity-75">{useCase.description}</p>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   )
