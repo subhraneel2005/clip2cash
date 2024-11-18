@@ -18,7 +18,7 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
         color: "#FFFFFF",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
-        fontWeight: "400",
+        fontWeight: "800",
         filter: "drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.25))",
       }
     },
@@ -31,7 +31,7 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
         color: "#B4FFAA",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
-        fontWeight: "400",
+        fontWeight: "800",
         filter: "drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.25))",
       }
     },
@@ -44,7 +44,7 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
         color: "#FFF700",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
-        fontWeight: "400",
+        fontWeight: "800",
         filter: "drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.25))",
       }
     },
@@ -57,7 +57,7 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
         color: "#76DFFC",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
-        fontWeight: "400",
+        fontWeight: "800",
         filter: "drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.25))",
       }
     },
