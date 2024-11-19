@@ -40,6 +40,7 @@ export default function AiVoiceover({ onVoiceSelect, story, fontStyle, backgroun
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [generationStatus, setGenerationStatus] = useState<string>('');
 
   const handleVoiceSelect = (voiceId: string) => {
     setSelectedVoice(voiceId);
@@ -64,6 +65,7 @@ export default function AiVoiceover({ onVoiceSelect, story, fontStyle, backgroun
     try {
       setIsGenerating(true);
       setError(null);
+      setGenerationStatus('Generating video...');
 
       const response = await fetch('/api/generate-video', {
         method: 'POST',
@@ -79,14 +81,18 @@ export default function AiVoiceover({ onVoiceSelect, story, fontStyle, backgroun
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to generate video');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to generate video');
       }
 
       const data = await response.json();
       
-      // Redirect to preview page with the generated video data
-      router.push(`/preview?videoUrl=${encodeURIComponent(data.videoUrl)}`);
+      if (data.videoUrl) {
+        const encodedUrl = encodeURIComponent(data.videoUrl);
+        router.push(`/preview?videoUrl=${encodedUrl}`);
+      } else {
+        throw new Error('No video URL in response');
+      }
 
     } catch (err) {
       console.error('Error generating video:', err);
@@ -137,10 +143,12 @@ export default function AiVoiceover({ onVoiceSelect, story, fontStyle, backgroun
             </div>
           )}
 
-          <div className="alert alert-info w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <span>Preview the voices before generating your video!</span>
-          </div>
+          {isGenerating && (
+            <div className="alert alert-info">
+              <span className="loading loading-spinner"></span>
+              <span>{generationStatus}</span>
+            </div>
+          )}
 
           <button 
             onClick={handleGenerate}

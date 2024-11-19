@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
       {
@@ -13,7 +12,35 @@ const nextConfig: NextConfig = {
         hostname: "avatars.githubusercontent.com"
       }
     ]
-  }
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals = [...(config.externals || []), {
+        'fluent-ffmpeg': 'commonjs fluent-ffmpeg',
+        'ffmpeg-static': 'commonjs ffmpeg-static',
+        'ffprobe-static': 'commonjs ffprobe-static'
+      }];
+    }
+    return config;
+  },
+  // Add CORS headers for FFmpeg
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

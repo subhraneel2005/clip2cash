@@ -1,15 +1,17 @@
+'use client';
+
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 interface VideoPreviewProps {
   videoUrl: string;
-  subtitles: Array<{
+  subtitles?: Array<{
     text: string;
     startTime: number;
     endTime: number;
   }>;
-  fontStyle: string;
+  fontStyle?: string;
 }
 
 export default function VideoPreview({ videoUrl }: VideoPreviewProps) {
@@ -36,6 +38,10 @@ export default function VideoPreview({ videoUrl }: VideoPreviewProps) {
     setIsLoading(false);
     setError(null);
   };
+
+  React.useEffect(() => {
+    console.log('Video URL:', videoUrl);
+  }, [videoUrl]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-base-100">
@@ -72,11 +78,14 @@ export default function VideoPreview({ videoUrl }: VideoPreviewProps) {
 
           <video
             ref={videoRef}
-            src={videoUrl}
+            src={videoUrl.startsWith('/') ? videoUrl : `/${videoUrl}`}
             className="w-full aspect-video"
             controls
             onLoadedData={handleVideoLoad}
-            onError={handleVideoError}
+            onError={(e) => {
+              console.error('Video error:', e);
+              handleVideoError();
+            }}
           />
         </div>
 
