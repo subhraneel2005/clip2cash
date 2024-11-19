@@ -13,8 +13,8 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
       id: "style1",
       style: {
         fontFamily: "'Black Han Sans'",
-        fontSize: "40px",
-        lineHeight: "50px",
+        fontSize: "28px",
+        lineHeight: "36px",
         color: "#FFFFFF",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
@@ -26,8 +26,8 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
       id: "style2",
       style: {
         fontFamily: "'Black Han Sans'",
-        fontSize: "40px",
-        lineHeight: "50px",
+        fontSize: "28px",
+        lineHeight: "36px",
         color: "#B4FFAA",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
@@ -39,8 +39,8 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
       id: "style3",
       style: {
         fontFamily: "'Black Han Sans'",
-        fontSize: "40px",
-        lineHeight: "50px",
+        fontSize: "28px",
+        lineHeight: "36px",
         color: "#FFF700",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
@@ -52,8 +52,8 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
       id: "style4",
       style: {
         fontFamily: "'Black Han Sans'",
-        fontSize: "40px",
-        lineHeight: "50px",
+        fontSize: "28px",
+        lineHeight: "36px",
         color: "#76DFFC",
         WebkitTextStroke: "2px #000000",
         textStroke: "2px #000000",
