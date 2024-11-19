@@ -2,9 +2,29 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import fs from 'fs';
 import path from 'path';
-import ffmpeg from '@/lib/ffmpeg-config';
-import { fontStyles } from '@/lib/fontStyles';
-import { downloadFont } from '@/lib/downloadFonts';
+import ffmpeg from 'fluent-ffmpeg';
+import ffmpegStatic from 'ffmpeg-static';
+import ffprobeStatic from 'ffprobe-static';
+
+// Set FFmpeg paths based on platform
+if (ffmpegStatic) {
+  ffmpeg.setFfmpegPath(ffmpegStatic);
+}
+
+if (ffprobeStatic.path) {
+  ffmpeg.setFfprobePath(ffprobeStatic.path);
+}
+
+// Path handling utility
+const sanitizePath = (filePath: string) => {
+  // Normalize path based on OS
+  const normalized = path.normalize(filePath);
+  
+  // Convert to FFmpeg-compatible format
+  return process.platform === 'win32'
+    ? `"${normalized.replace(/\\/g, '/')}"`  // Windows: Add quotes and convert backslashes
+    : normalized.replace(/(\s+)/g, '\\$1');  // Linux/Mac: Escape spaces
+};
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -91,13 +111,13 @@ export async function POST(req: Request) {
 
     await new Promise((resolve, reject) => {
       ffmpeg()
-        .input(inputVideoPath)
-        .input(audioPath)
+        .input(sanitizePath(inputVideoPath))
+        .input(sanitizePath(audioPath))
         .complexFilter([
           {
             filter: 'subtitles',
             options: {
-              filename: path.resolve(subtitlesPath),
+              filename: sanitizePath(subtitlesPath),
               force_style: `FontName=${fontStyle.style.fontFamily.replace(/[']/g, '')},` +
                           `FontSize=${getFontSize(fontStyle.style.fontSize)},` +
                           `PrimaryColour=${convertColor(fontStyle.style.color)},` +
