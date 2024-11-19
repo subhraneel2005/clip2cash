@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 interface FontStyleProps {
   onNext: () => void;
-  onFontSelect?: (font: string) => void;
+  onFontSelect?: (font: { id: string, style: any }) => void;
 }
 
 export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
@@ -66,7 +66,8 @@ export default function FontStyle({ onNext, onFontSelect }: FontStyleProps) {
   const handleFontSelect = (fontId: string) => {
     setSelectedFont(fontId);
     if (onFontSelect) {
-      onFontSelect(fontId);
+      const selectedFontStyle = fonts.find(f => f.id === fontId);
+      onFontSelect(selectedFontStyle!);
     }
   };
 

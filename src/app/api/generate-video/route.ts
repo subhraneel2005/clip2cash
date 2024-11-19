@@ -3,6 +3,8 @@ import OpenAI from 'openai';
 import fs from 'fs';
 import path from 'path';
 import ffmpeg from '@/lib/ffmpeg-config';
+import { fontStyles } from '@/lib/fontStyles';
+import { downloadFont } from '@/lib/downloadFonts';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -16,6 +18,23 @@ export async function POST(req: Request) {
     console.log('Received request body:', body);
 
     const { story, fontStyle, backgroundVideo, voiceId } = body;
+
+    // Convert CSS color to ASS color format
+    const convertColor = (cssColor: string) => {
+      // Remove # and convert to RGB
+      const hex = cssColor.replace('#', '');
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+      // Return ASS color format (&HBBGGRR&)
+      return `&H${b.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${r.toString(16).padStart(2, '0')}&`;
+    };
+
+    // Convert px to number
+    const getFontSize = (size: string) => parseInt(size.replace('px', ''));
+
+    // Convert stroke width
+    const getStrokeWidth = (stroke: string) => parseInt(stroke.replace('px', ''));
 
     // 1. Generate speech
     console.log('Starting speech generation');
@@ -79,21 +98,31 @@ export async function POST(req: Request) {
             filter: 'subtitles',
             options: {
               filename: path.resolve(subtitlesPath),
-              force_style: `FontName=${fontStyle},FontSize=24,Alignment=10,BorderStyle=3,Outline=1,Shadow=0,MarginV=25,PrimaryColour=&HFFFFFF&,OutlineColour=&H000000&`
+              force_style: `FontName=${fontStyle.style.fontFamily.replace(/[']/g, '')},` +
+                          `FontSize=${getFontSize(fontStyle.style.fontSize)},` +
+                          `PrimaryColour=${convertColor(fontStyle.style.color)},` +
+                          `OutlineColour=&H000000&,` +  // Black outline
+                          `BorderStyle=1,` +
+                          `Outline=${getStrokeWidth(fontStyle.style.WebkitTextStroke)},` +
+                          `Shadow=1,` +
+                          `BackColour=&H00000000&,` +  // Transparent background
+                          `MarginV=25,` +
+                          `Alignment=10,` +
+                          `Bold=1`
             },
             inputs: '[0:v]',
             outputs: '[v]'
           }
         ])
         .outputOptions([
-          '-map', '[v]',          // map the video with subtitles
-          '-map', '1:a',          // map only the AI generated audio
-          '-c:v', 'libx264',      // video codec
+          '-map', '[v]',
+          '-map', '1:a',
+          '-c:v', 'libx264',
           '-preset', 'medium',
           '-crf', '23',
-          '-c:a', 'aac',          // audio codec
+          '-c:a', 'aac',
           '-b:a', '192k',
-          '-shortest'             // match shortest input length
+          '-shortest'
         ])
         .on('start', (commandLine) => {
           console.log('Started processing video');

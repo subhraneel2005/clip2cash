@@ -9,7 +9,7 @@ import AiVoiceover from "../Video-Components/AiVoiceover";
 export default function CreateVideo() {
   const [activeSection, setActiveSection] = useState("story");
   const [storyText, setStoryText] = useState("");
-  const [selectedFont, setSelectedFont] = useState("");
+  const [selectedFont, setSelectedFont] = useState<any>(null);
   const [selectedVideo, setSelectedVideo] = useState("");
   const [selectedVoice, setSelectedVoice] = useState("");
 
